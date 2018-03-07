@@ -1,9 +1,34 @@
 body {
     background-color: #ffffff;
     font-family:'Raleway', 'Open Sans', sans-serif;
+    overflow-y: visible;
 }
+
+.zoom{
+         /* -webkit-transition: all .2s ease-in-out;*/
+         /* transition: all .2s ease-in-out; */
+         /*transition:transform .2s; /* Animation */
+         transition:transform .1s; /* Animation */
+         transition: all .1s ease-in-out;
+         margin-top:12px;
+     
+}
+
+
+.zoom:hover {
+           -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+          
+}
+
+
+/*image tags*/
+
+/*------------------------------------------------------*/
+
 p {
     margin: 5px 0;
+    line-height: 1.6
 }
 strong {
     font-weight: 700;
@@ -20,25 +45,184 @@ li {
 }
 
 /* 	Information boxes for different chart layouts */
-/* Positioning */
-#initial-content, #a, #b, #c, #d, #e, #f, #view-party-type, #view-donor-type, #view-source-type, #partyInfo, #conservative, #labour, #libdem, #individual, #company, #union, #society, #other, #public-or-private-money, #public-or-private-money-split, #private-money, #public-money { 
+/* Positioning 
+*/
+#initial-content, #a, #b, #c, #d, #e, #f, #view-party-type, #view-donor-type, #view-source-type, #partyInfo, #conservative, #labour, #libdem, #individual, #company, #union, #society, #other, #public-or-private-money, #public-or-private-money-split, #private-money, #public-money
+,#view-amount-donation,#view-amount-donation-cat1,#view-amount-donation-cat2,#view-amount-donation-cat3,#view-amount-infobox{ 
     position: absolute; 
 }
 
+
+/*STYLESHEETS FOR IMAGE HISTORY*/
+
+#imageTest{
+	width:900px;
+	height:150px;
+	border:2px solid rgba(10,20,30,0.5);
+    margin: auto;
+    /*margin:auto;  HMM*/
+   /* margin-top:20px;*/
+}
+
+#imageTest img{
+    /*display:block;*/
+    width:42px;
+    height:42px;
+    border:1px solid rgba(10,20,30,0.5);
+    margin-left:35px;
+    margin-right:10px;
+}
+
+.tooltipImHist{
+     width:500px;
+     height:500px;
+     display:inline-block;
+     background-color:lightgray;
+     position:absolute;   
+     top:150px;
+}
+
+
+
+#imageTest  #left-arrow{
+    border:1px ;
+    margin:auto;
+    margin-left:0px;
+}
+
+#imageTest #right-arrow{
+    border:1px;
+    margin:auto;
+    float:right;
+}
+
+/*
+#imageTest h4{
+    border-bottom:2px solid rgba(10,20,30,0.5);
+    text-align:center;
+    margin-top:0px;
+    margin-bottom:28px;
+    color:black;
+}
+*/
+
+
+/* END OF IMAGE HISTORY !*/
+
+
+#view-amount-infobox{
+    position: relative;
+}
+
+/* ARROW STYLESHEETS */
+
+.left-arrow{
+     border:1px ;
+     margin-left:0px;
+}
+
+.right-arrow{
+    border:1px;
+    /*float:right;*/
+    margin-right:-10px;
+}
+
+/* END OF ARROW STYLESHEETS*/
+
+
+
+
+
+/*STYLES FOR SPLIT BY DONATION OPTION*/
+div #view-amount-infobox{
+    border:2px solid rgba(20,20,20,0.1);
+   width:72%;
+   height:90px;
+   margin-top:40px;
+   /*padding-top:100px;*/
+   /* right:650px;*;
+   /* left:auto;*/
+   left:190px;
+   background-color:rgba(3,3,3,0.1);
+
+}
+
+
+
+
+#view-amount-donation-cat1{
+    left:320px;
+    top:200px;
+    width:400px;
+}
+
+#view-amount-donation-cat2{
+    left:520px;
+    top:200px;
+    width:400px;
+}
+
+#view-amount-donation-cat3{
+    left:810px;
+    top:200px;
+    width:400px;
+}
+
+#view-amount-donation h3{
+    margin-bottom:2%;
+    width:100vw;
+    text-align:center; 
+}
+
+#view-amount-donation-cat1,#view-amount-donation-cat2,#view-amount-donation-cat3{
+    border: 0px solid blue;
+    width:150px;
+    height:25px;
+   /* background-color:rgb(100,100,100,0.6);*/
+}
+
+
+
+
+
+/*END SPLIT BY THE AMOUNT OF DONATION STYLESHEETS */
+
+
+
+/*
+    public-or-private-money STYLESHEETS 
+*/
+
+#view-source-type {
+    color:black;
+    margin-bottom:inherit; 
+    margin-top: inherit;
+}
+
+#view-source-type p:hover{
+    /*color:red;*/
+    margin-bottom:20px;
+    margin:top:90px;
+}
+
 /* Initial appearance on load */
-#view-party-type, #view-donor-type, #view-source-type {
+#view-party-type, #view-donor-type, #view-source-type,#view-amount-donation{
     display: none;
 }
 
+
 /* View containers */
-#initial-content, #view-source-type {
+#initial-content, #view-source-type{
     left: 650px;
     width: 400px;
 }
+
+/*Style SplitByPart*/
 #view-party-type {
     left: 650px;
     width: 272px;
 }
+
 
 /*  Public or private funds view */
 
@@ -63,15 +247,16 @@ li {
 /*  Party view */
 #conservative, #labour, #libdem { padding: 10px; }
 #conservative {
-    background: rgba(8, 127, 189, 0.2);
+    background: rgba(120, 212, 123, 1);
     top: 110px;
 }
 #labour {
-    background: rgba(240, 34, 51, 0.2);
+    /*background: rgba(240, 250, 51, 0.2); *//*240, 34, 51, 0.2*/
+    background:rgba(100,220,200,1);
     top: 330px;
 }
 #libdem {
-    background: rgba(253, 187, 48, 0.2);
+    background: rgba(255, 0,255, 1);
     top: 550px;
 }
 
@@ -119,7 +304,7 @@ li {
 /* End of view */
 
 circle {
-    stroke: rgba(238, 238, 238, 1);
+    stroke: rgba(238, 238, 238, 0.8);
     stroke-width: 0.5;
 }
 circle.active {
@@ -132,6 +317,24 @@ circle.active {
     stroke-width: 1;
     fill: none;
 }
+
+.tooltip2{
+     margin: 0;
+    padding: 5px;
+    line-height: 1.4;
+    display: none;
+    height: 125px;
+    width: 280px;
+    text-align: left;
+    border: 4px solid rgba(0, 0, 0, .8);
+    border-radius: 2px;
+    -moz-box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+}
+
 .tooltip {
     margin: 0;
     padding: 5px;
@@ -185,6 +388,7 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
 }
 /* Firefox: Get rid of the inner focus border */
 .pure-button::-moz-focus-inner {
