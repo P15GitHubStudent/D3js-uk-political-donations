@@ -384,7 +384,7 @@ function display(data) {
 //dimiourgei kai epistrefei ena image tag! kai to onoma tou prosfiorizetai apo to onoma Donor
 function createImg(donor,id,infoBox){
 			var path="https://raw.githubusercontent.com/ioniodi/D3js-uk-political-donations/master/photos/" + donor + ".ico";
-			path="photos/"+donor+".ico";
+			//path="photos/"+donor+".ico";
 			var img = $(document.createElement('img'));
 				//img.attr('src','photos/' + donor +'.ico');
 				img.attr('src',path);
