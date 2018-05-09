@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Who's funding the big three?</title>
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+    <!-- 180x110 Image for Linkedin -->
+    <meta property="og:image:width" content="180" />
+    <meta property="og:image:height" content="110" />
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+    <!-- 200x200 Image for Facebook -->
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700">
+    <script src="src/responsivevoice.js"></script>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<style type="text/css">   
+</style>
+
+</head>
+
+<body>
+    <!--SHOWS THE SITE MENU HERE! -->
+    <header role="banner" id="title">
+        <h1 class="zoom2">Who's funding the big three?</h1>
+    </header>
+    <nav role="navigation">
+        <ul>
+            <li><a href="#" role="button" class="pure-button switch" id="all-donations" class="zoom"><p class="zoom2">All Money</p></a></li>
+            </li>
+            <li><a href="#" role="button" class="pure-button switch" id="group-by-money-source"><p class="zoom2"> The public's purse</p></a>
+            </li>
+            <li><a href="#" role="button" class="pure-button switch" id="group-by-party"><p class="zoom2">Split by party</p></a>
+            </li>
+            <li><a href="#" role="button" class="pure-button switch" id="group-by-donor-type"><p class="zoom2">Split by type of donor</p></a></li>
+            
+            <li><a href="#" role="button" class="pure-button switch" id="group-by-donation-amount"><p class="zoom2">Split by the amount of donation</p></a> </li>
+
+            <li><a href="viz-2.html" role="button" class="pure-button switch" id="change-visualisation"><p class="zoom2">Another Visualization!</p></a> </li>
+       </ul>
+    </nav>
+<script>
+
+function changeVisualization(name){
+
+    if(name === currentChart)return;
+
+    currentChart = name;
+
+    hideAllByIds();
+
+    displayById(name);
+
+    transition(currentGrouping);
+
+    if(name === "bubbleChart"){
+        displayById("annotations");
+        displayById("imageTest"); // oreo onoma gia to istoriko :( 
+    }
+
+    displayById("imageTest");
+}
+
+</script>
+
+<div id="btn-vis-container">
+  <button class="zoom2" type="button" onclick="changeVisualization('bubbleChart')">BubbleChart</button>
+  <button class="zoom2" type="button" onclick="changeVisualization('circlePackChart')">CirclePack</button>
+  <button class="zoom2" type="button" onclick="changeVisualization('barChart')">BarChart</button>
+</div>
+
+<!--END OF MENU-->
+    <div id="annotations">
+        <!-- Initial annotations -->
+        <div id="initial-content">
+            <h2 class="zoom">Political donations and funding accepted by the Conservatives, Labour and Liberal Democrats between the 2010 general election and August 2013, when this data was collected.</h2>
+            <p class="zoom">Each circle represents the total amount donated by a single donor group, funding organisation or individual during that period.</p>
+            <p class="zoom">Hover over a circle to show further information.</p>
+
+            <p class="zoom">Get an immediate overview of how party funding is shaped in Britain today by selecting one of the options at the top of the page.</p>
+            <p class="zoom">Data is based on all reportable donations over &#163;7700.</p>
+            <p class="zoom">Data source: <a href="http://www.electoralcommission.org.uk/">The Electoral Commission.
+            </a>
+            </p>
+        </div>
+
+
+        <div id="value-scale">
+            <div id="f" class="zoom">
+                <p>&#8212;UK average salary</p>
+            </div>
+            <div id="a" class="zoom">
+                <strong>&#163;27k &#8212;</strong>
+            </div>
+            <div id="b" class="zoom">
+                <strong>&#163;70k &#8212;</strong>
+            </div>
+            <div id="c" class="zoom">
+                <strong>&#163;100k &#8212;</strong>
+            </div>
+            <div id="d" class="zoom">
+                <strong>&#163;700k &#8212;</strong>
+            </div>
+            <div id="e" class="zoom">
+                <strong>&#163;1m &#8212;</strong>
+            </div>
+        </div>
+        <!-- End initial-->
+
+        <!-- Public or private money annotations -->
+        <div id="view-source-type">
+            <div id="public-or-private-money" class="public-private">
+                <h3 class="zoom">Public money vs private cash</h3>
+                <p class="zoom">Despite general public opposition to more taxpayer money being given to political parties, public funds are already provided to opposition parties in the form of 'short money' from the House of Commons, House of Lords and Scottish Parliament.</p>
+                <p class="zoom">The parties also benefit from 'Policy development grants' given by the Electoral Commission.</p>
+            </div>
+            <div id="public-or-private-money-split" class="public-private">
+                <div id="private-money" class="zoom">
+                    <h7>Private Donations</h7>
+                    <strong>Total: &#163;89,772,724
+                        </strong>
+                            <p>Proportion of all donations:
+                                <strong>77%</strong>
+                            </p>
+                </div>
+                <div id="public-money" class="zoom">
+                    <h7>Public Funds</h7>
+                    <strong>Total: &#163;26,779,038
+                        </strong>
+                            <p>Proportion of all donations:
+                                <strong>23%</strong>
+                            </p>
+                </div>
+          </div>
+        </div>
+        <!-- End public or private money -->
+
+        <!-- -->
+        <div id="view-amount-donation">
+        <!-- For the first message-->   
+         <!--<>Split by amount of Donation</h3>-->
+
+         
+          <div id="view-amount-infobox" class="zoom">
+                <p>Ο διαχωρισμός στις τρέις περιοχές έγινε με βάση ενα εύρος τιμών που βρίσκεται η κάθε δωρέαν. 
+                Το οποίο αναγράφεται πάνω απο κάθε περιοχή.</p>
+        </div>
+
+
+        <div id="view-amount-donation-cat1" class="zoom">
+            <strong> Μικρό &#163; 12000</strong>
+        </div>
+
+        <div id="view-amount-donation-cat2" class="zoom">
+            <strong> Μεσσάιο &#163; 20000</strong>
+        </div>
+
+        <div id="view-amount-donation-cat3" class="zoom">
+            <strong> Μεγάλο &#163; 30000</strong>
+        </div>
+
+        </div>
+
+        <!-- -->
+
+        <div id="view-party-type">
+            <h3 class="zoom">Income for each party from private sources.</h3>
+            <div id="conservative" class="zoom">
+                <h7>Conservative Party</h7>
+                <strong>Total: &#163;43.7 million
+                    </strong>
+                        <p>Top 70 donors gave:
+                            <strong>&#163;23,329,828</strong>
+                            <br>
+                            <strong>70%</strong>of the total.</p>
+                        <p>Top 10 donors gave:
+                            <strong>&#163;12,877,989</strong>
+                            <br>
+                            <strong>27%</strong>of the total</p>
+            </div>
+            <div id="labour" class="zoom">
+                <h7>Labour Party</h7>
+                <strong>Total: &#163;38.9 million
+                    </strong>
+                        <p>Top 70 donors gave:
+                            <strong>&#163;39,196,684</strong>
+                            <br>
+                            <strong>92%</strong>of the total.</p>
+                        <p>Top 10 donors gave:
+                            <strong>&#163;34,717,877</strong>
+                            <br>
+                            <strong>81%</strong>of the total</p>
+            </div>
+            
+            <div id="libdem" class="zoom">
+                <h7>Liberal Democrats</h7>
+                <strong>Total: &#163;7.1 million
+                    </strong>
+                        <p>Top 70 donors gave:
+                            <strong>&#163;6,977,973</strong>
+                            <br>
+                            <strong>63%</strong>of the total.</p>
+                        <p>Top 10 donors gave:
+                            <strong>&#163;4,823,899.71</strong>
+                            <br>
+                            <strong>43%</strong>of the total</p>
+            </div>
+        </div>
+
+
+        <div id="view-donor-type">
+            <div id="individual" class="zoom">
+                <h7>Individuals</h7>
+                <strong>Total: &#163; 37,191,222
+                    </strong>
+                        <p>Proportion of all donations:
+                            <strong>39%</strong>
+                        </p>
+            </div>
+            <div id="company" class="zoom">
+                <h7>Companies</h7>
+                <strong>Total: &#163; 17,072,129
+                    </strong>
+                        <p>Proportion of all donations:
+                            <strong>19%</strong>
+                        </p>
+            </div>
+            <div id="union" class="zoom">
+                <h7>Trade Unions</h7>
+                <strong>Total: &#163;31,474,649
+                    </strong>
+                        <p>Proportion of all donations:
+                            <strong>37%</strong>
+                        </p>
+            </div>
+            <div id="society" class="zoom">
+                <h7>Societies</h7>
+                <strong>Total: &#163;4,770,129
+                    </strong>
+                        <p>Proportion of all donations:
+                            <strong>7%</strong>
+                        </p>
+            </div>
+            <div id="other" class="zoom">
+                <h7>Others</h7>
+                <strong>Total: &#163; 1,484,397
+                    </strong>
+                        <p>Proportion of all donations:
+                            <strong>2%</strong>
+                        </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="bubbleChart">
+    </div>
+
+    <div id="barChart">
+    </div>
+    
+    <div id="circlePackChart">
+    </div>
+
+   <div id="imageTest">
+        <div id="HistTitle">
+                <div style="background-color:cyan;padding-top:10px;width:900px;height:40px;margin-bottom:20px;">
+                    <ul>
+                        <li id="histId" style="position:relative;bottom:7px;height:120px;margin-top:10px;">History Index:0</li>
+                        <li onclick="cleanHist()" style="position:relative;left:10px;bottom:7px;">Clear History</li>
+                    </ul>
+                </div>
+        </div> 
+            <a href="#historyTest"><img src="photos/previous_active.png" id="left-arrow" onclick="goBackHistory()"></a>
+            <a href="#historyTest"><img src="photos/next_active.png" id="right-arrow" onclick="goNextHistory()"></a>
+        </div>
+    </div>
+
+    <script src="src/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')
+    </script>
+    <script src="src/d3.v3.min.js" charset="utf-8"></script>
+    <script src="chart3.js"></script>
+    <script src="chart2.js"></script>
+    <script src="chart.js"></script>
+    <script src="charts.js"></script>
+    <script src="history.js"></script>
+</body>
+
+</html>
