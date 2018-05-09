@@ -1,3 +1,4 @@
+
 // GLOBALS
 var w = 1000,h = 900;
 var padding = 2;
@@ -5,9 +6,10 @@ var nodes = [];
 var force, node, data, maxVal;
 var brake = 0.2; //0.2
 var radius = d3.scale.sqrt().range([10, 20]);
+//metablites sxetika me to Istoriko mas !
 var mouseClickSound = new Audio('sounds/mouseClick.wav'); // antikeimeno gia na click Sound!
-
-
+var bubbleChartId = "#bubbleChart";
+//code for our current CHART
 var partyCentres = { 
     con: { x: w / 3, y: h / 3.3}, 
     lab: {x: w / 3, y: h / 2.3}, 
@@ -29,24 +31,16 @@ var svgCentre = {
     x: w / 3.6, y: h / 2
   };
 
-var svg = d3.select("#chart").append("svg")
-	.attr("id", "svg")
+var svg = d3.select(bubbleChartId).append("svg")
+	.attr("id", "BubbleChartSvg")
 	.attr("width", w)
 	.attr("height", h);
 
 var nodeGroup = svg.append("g");
 
-var tooltip = d3.select("#chart")
- 	.append("div")
-	.attr("class", "tooltip")
-	.attr("id", "tooltip");
-
 var comma = d3.format(",.0f");
 
-//sunartisi pou kaleitai otan kathe fora pame na kanoume transition pano se ena kaninourgio sxima !
-function transition(name) {
-
-	mouseClickSound.play();
+function BubbleChartTransition(name){
 
 	if (name === "all-donations"){
 		$("#initial-content").fadeIn(250);
@@ -57,7 +51,8 @@ function transition(name) {
 		$("#view-amount-donation").fadeOut(250); // ADDITION
 		return total();
 	}
-	if (name === "group-by-party"){
+	 if (name === "group-by-party"){
+		//console.log("group-by-party ?");
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
@@ -66,18 +61,19 @@ function transition(name) {
 		$("#view-amount-donation").fadeOut(250); //ADDITION
 		return partyGroup();
 	}
-	if (name === "group-by-donor-type"){
+	 if (name === "group-by-donor-type"){
+		//console.log("group-by-party ?");
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-amount-donation").fadeOut(250); //ADDITION
 		$("#view-donor-type").fadeIn(1000);
-
 		return donorType();
 	}
-
 	if(name === "group-by-donation-amount"){
+		//console.log(name);
+		//console.log("group-by-party ?");
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
@@ -85,21 +81,27 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-amount-donation").fadeIn(1000); //ADDITION
 		return amountGroup();
-
 	}
 
-	if (name === "group-by-money-source")
+	 if (name === "group-by-money-source"){
+		//console.log(" group-by-money-source");
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeIn(1000);
-		$("#view-amount-donation").fadeOut(250);  // ADDITION 
+		$("#view-amount-donation").fadeOut(250); 
 		return fundsType();
-	} //end OF transition
+	}
+}
+
+function transition(name){
+	currentGrouping = name;
+	mouseClickSound.play();
+	transitionCallbacks[currentChart](name);
+}
 
 function start() {
-
 
 	node = nodeGroup.selectAll("circle")
 		.data(nodes)
@@ -113,12 +115,12 @@ function start() {
 		.style("fill", function(d) { return fill(d.party); })
 		.on("mouseover", mouseover)
 		.on("click", function(d){
-			  window.open('http://google.com/search?q='+d.donor);
+			  window.open('http://google.com/search?q=' + d.donor);
 		})
 		.on("mouseout", mouseout); 
 		// Alternative title based 'tooltips'
-		// node.append("title")
-		//	.text(function(d) { return d.donor; });
+		 // node.append("title")
+			// .text(function(d) { return d.donor; });
 
 		force.gravity(0)
 			.friction(0.75)
@@ -131,8 +133,7 @@ function start() {
 			.attr("r", function(d) { return d.radius; });
 }
 
-function total() {
-
+function total(){
 	force.gravity(0)
 		.friction(0.9)
 		.charge(function(d) { return -Math.pow(d.radius, 2) / 2.8; })
@@ -140,7 +141,7 @@ function total() {
 		.start();
 }
 
-function amountGroup(){
+function amountGroup(){ 
 	force.gravity(0)
 		 .friction(0.8)
 		 .charge(function(d){return -Math.pow(d.radius,2.0)/3;})
@@ -173,6 +174,7 @@ function fundsType() {
 		.start();
 }
 
+///////////////////////////////////////////////////////////////////////////
 function parties(e) {
 	node.each(moveToParties(e.alpha));
 
@@ -183,7 +185,6 @@ function parties(e) {
 /*Για την επιλογή που έχουμε να υλοποίσουμε */
 function amounts(e){
 	node.each(moveToAmountofDono(e.alpha));
-
 	node.attr("cx",function(d){return d.x;})
 		.attr("cy",function(d){return d.y;})
 }
@@ -204,7 +205,6 @@ function types(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
-/*Για την πρώτη επιλογή*/
 function all(e) {
 	node.each(moveToCentre(e.alpha))
 		.each(collide(0.001));
@@ -213,7 +213,8 @@ function all(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
-function moveToCentre(alpha) {
+function moveToCentre(alpha){
+	//console.log('moveToCentre');
 	return function(d) {
 		var centreX = svgCentre.x + 75;
 			if (d.value <= 25001){
@@ -238,9 +239,12 @@ function moveToCentre(alpha) {
 }
 
 function moveToAmountofDono(alpha){
+	//console.log('moveToAmountOfDono()');
 	return function(d){
-		var centreY = entityCentres[d.entity].y;
-		var centreX = entityCentres[d.entity].x;
+		//var centreY = entityCentres[d.entity].y;
+		//var centreX = entityCentres[d.entity].x;
+
+		var centreX=0,centreY=0;
 
 			if (d.value <= 300001){
 				
@@ -253,11 +257,17 @@ function moveToAmountofDono(alpha){
 				centreY = 450;
 
 			}
+			else{
+				centreX = 740;
+				centreY = 450;
+			}
+			/*
 			else if(d.value)
 			{
 				centreX = 740;
 				centreY = 450;
 			}
+			*/
 
 
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
@@ -267,6 +277,7 @@ function moveToAmountofDono(alpha){
 }
 
 function moveToParties(alpha) {
+	//console.log("moveToParties()");
 	return function(d) {
 		var centreX = partyCentres[d.party].x + 50;
 		if (d.entity === 'pub') {
@@ -281,7 +292,7 @@ function moveToParties(alpha) {
 	};
 }
 
-function moveToEnts(alpha) {
+function moveToEnts(alpha){
 	return function(d){
 		var centreY = entityCentres[d.entity].y;
 		if (d.entity === 'pub') {
@@ -365,15 +376,9 @@ function display(data) {
 				color: d.color,
 				x: Math.random() * w,
 				y: -y
-      };
-			
+      };	
       nodes.push(node)
 	});
-
-	//nodes = nodes.sort(function(a,b) { return Number.parseInt(a.value) >  Number.parseInt(b.value) ; });
-    //function(d) { return});
-
-
 	force = d3.layout.force()
 		.nodes(nodes)
 		.size([w, h]);
@@ -381,40 +386,7 @@ function display(data) {
 	return start();
 }
 
-//dimiourgei kai epistrefei ena image tag! kai to onoma tou prosfiorizetai apo to onoma Donor
-function createImg(donor,id,infoBox){
-			var path="https://raw.githubusercontent.com/ioniodi/D3js-uk-political-donations/master/photos/" + donor + ".ico";
-			//path="photos/"+donor+".ico";
-			var img = $(document.createElement('img'));
-				//img.attr('src','photos/' + donor +'.ico');
-				img.attr('src',path);
-				//img.attr('alt',donor);
-				img.attr('onError','');
-				img.attr("id",id);
-				img.attr("class","deletable")
-				img.appendTo('#imageTest');
-
-				img.on('mouseover',function(d,i){
-
-					 responsiveVoice.speak(donor);
-					 var id = d3.select(this).attr("id");
-					 d3.select(".tooltip")
-					   .style("left",(parseInt(105 + id * 100 + 31)+"px"))
-					   .style("top",(parseInt(910) + "px"))
-					   .style("display","block")
-					   .html(infoBox);
-
-				});
-
-				img.on('mouseout',function(d,i){
-					responsiveVoice.cancel();
-					d3.select(".tooltip")
-					  .style("display","none");
-				});
-}
-
 function mouseover(d, i) {
-
 	// tooltip popup
 	var mosie = d3.select(this);
 	var amount = mosie.attr("amount");
@@ -436,36 +408,18 @@ function mouseover(d, i) {
 	 							+ "<p> Recipient: <b>" + party + "</b></p>"
 								+ "<p> Type of donor: <b>" + entity + "</b></p>"
 								+ "<p> Total value: <b>&#163;" + comma(amount) + "</b></p>";
+
+	
 	
 	/* tooltip για οταν τοποθετήσουμε το κουμπί μας πάνω σε μια μπάλα */
 	mosie.classed("active", true);
 	d3.select(".tooltip")
   	.style("left", (parseInt(d3.select(this).attr("cx") - 80) + offset.left) + "px")
     .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
-		.html(infoBox)
-			.style("display","block");
-			
+	.html(infoBox)
+	.style("display","block");
 
-				img.on('mouseover',function(d,i){
-
-					 var id = d3.select(this).attr("id");
-					 d3.select(".tooltip")
-					   .style("left",(parseInt(105 + id * 100 + 31)+"px"))
-					   .style("top",(parseInt(910) + "px"))
-					   .style("display","block")
-					   .html(infoBox);
-
-				});
-
-				img.on('mouseout',function(d,i){
-					responsiveVoice.cancel();
-					d3.select(".tooltip")
-					  .style("display","none");
-				});
-				
-
-	///////////////////////////////////////////
-
+	addImageHistory(imageFile, donor, infoBox);
 }
 
 function mouseout(){
@@ -474,20 +428,23 @@ function mouseout(){
 
 		var mosie = d3.select(this);
 
-		mosie.classed("active", false);
+		mosie.classed("active", false); 
 
 		d3.select(".tooltip")
-			.style("display", "none");
+			.style("display", "none"); 
 }
 
 $(document).ready(function(){
   d3.selectAll(".switch").on("click", function(d){
-  	var id = d3.select(this).attr("id");
-  	return transition(id);
-  }
+  	var id = d3.select(this).attr("id"); 
+  	return transition(id); //
+ 	}
 );
-    return d3.csv("data/7500up.csv", display);
-
-});
-
-
+  	//initToolTips();
+  	hideAllByIds();
+  	displayById("bubbleChart")
+  	displayById("annotations");
+  	displayById("imageTest");
+  	initBl("data/7500up.csv");
+	return d3.csv("data/7500up.csv", display);
+}); 

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>viz-2</title>
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+    <!-- 180x110 Image for Linkedin -->
+    <meta property="og:image:width" content="180" />
+    <meta property="og:image:height" content="110" />
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+    <!-- 200x200 Image for Facebook -->
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700">
+</head>
+
+<body>
+    <header role="banner" id="title">
+    <h1>Peoples population for different age groups</h1>
+    </header>
+    <nav role="navigation">
+        <ul>
+            <li><a href="#" role="button" class="pure-button switch" id="GroupingBtn1">Split by population</a></li>
+            </li>
+            <li><a href="#" role="button" class="pure-button switch" id="GroupingBtn2">split by year</a>
+            </li>
+            <li><a href="#" role="button" class="pure-button switch" id="GroupingBtn3">Split by ageGroup</a>
+            <li><a href="#" role="button" class="pure-button switch" id="GroupingBtn4">All</a>
+            <li><a href="index.html" role="button" class="pure-button switch" id="OrViz">Visualization1</a>
+       </ul>
+    </nav>
+
+
+    <div id="annotations">
+
+         <h2>Populations for different countries 2015-2017</h2>
+            <p>
+            Each country has two categories the first one is for people aged from 15 to 29 and the second one is for people less than 15 years old.
+            <p>2015-<span style="color: red;">Red</span></p>
+            <p>2016-<span style="color: green;">Green</span></p>
+            <p>2017-<span style="color: blue;">Blue</span></p>
+        </p>
+
+    <div id="grp1">
+       
+
+        <p style="position:relative;top:-100px;">
+      
+        </p>
+            <div id="initial-content">
+                <div style="position: absolute;left:-24em;top: 3.8em;">Small</div>
+                <div style="position: absolute;left:-17em;top: 3.8em;">medium</div>
+                <div style="position: absolute;left: 4em; top: 2.5em;">large</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="grp2" style="display: none;">
+        <div style="position: absolute;left:20em;top: 50em;">2015</div>
+        <div style="position: absolute;left:40em;top: 40em;">2016</div>
+        <div style="position: absolute;left:60em;top: 40em;">2017</div>
+    </div>
+
+    <div id ="grp3" style="display: none;">
+        <div style="position: absolute;left:20em;top: 50em;">Less than 15 years</div>
+        <div style="position: absolute;left:40em;top: 50em;">From 15 to 29 years</div>
+    </div>
+    
+    <div id="grp4" style="display: none;">
+    </div>
+
+
+    <div id="chart"></div>
+
+    <script src="src/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')
+    </script>
+    <script src="src/d3.v3.min.js" charset="utf-8"></script>
+    <script src="populationBubbleChart.js"></script>
+</body>
+
+</html>
